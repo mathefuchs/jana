@@ -167,30 +167,30 @@
             <div class="grid-detailed">
                 <div class="card">
                     <span class="number" id="years">0</span>
-                    <span class="label">Jahre</span>
+                    <span class="label" id="label-years">Jahre</span>
                 </div>
                 <div class="card">
                     <span class="number" id="months">0</span>
-                    <span class="label">Monate</span>
+                    <span class="label" id="label-months">Monate</span>
                 </div>
                 <div class="card">
                     <span class="number" id="days">0</span>
-                    <span class="label">Tage</span>
+                    <span class="label" id="label-days">Tage</span>
                 </div>
             </div>
 
             <div class="grid-total">
                 <div class="card">
                     <span class="number" id="total-months">0</span>
-                    <span class="label">Monate Gesamt</span>
+                    <span class="label" id="label-total-months">Monate Gesamt</span>
                 </div>
                 <div class="card">
                     <span class="number" id="total-days">0</span>
-                    <span class="label">Tage Gesamt</span>
+                    <span class="label" id="label-total-days">Tage Gesamt</span>
                 </div>
                 <div class="card">
                     <span class="number" id="total-seconds">0</span>
-                    <span class="label">Sekunden</span>
+                    <span class="label" id="label-total-seconds">Sekunden</span>
                 </div>
             </div>
         </div>
@@ -229,12 +229,22 @@
 
             // Update DOM
             document.getElementById('years').textContent = y;
+            document.getElementById('label-years').textContent = y === 1 ? 'Jahr' : 'Jahre';
+
             document.getElementById('months').textContent = m;
+            document.getElementById('label-months').textContent = m === 1 ? 'Monat' : 'Monate';
+
             document.getElementById('days').textContent = d;
+            document.getElementById('label-days').textContent = d === 1 ? 'Tag' : 'Tage';
 
             document.getElementById('total-months').textContent = totalMonths.toLocaleString('de-DE');
+            document.getElementById('label-total-months').textContent = totalMonths === 1 ? 'Monat Gesamt' : 'Monate Gesamt';
+
             document.getElementById('total-days').textContent = days.toLocaleString('de-DE');
+            document.getElementById('label-total-days').textContent = days === 1 ? 'Tag Gesamt' : 'Tage Gesamt';
+
             document.getElementById('total-seconds').textContent = seconds.toLocaleString('de-DE');
+            document.getElementById('label-total-seconds').textContent = seconds === 1 ? 'Sekunde' : 'Sekunden';
         }
 
         setInterval(updateCounters, 1000);
