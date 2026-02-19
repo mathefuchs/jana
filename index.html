@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zusammen seit 01.10.2022</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #0f172a;
+            --accent-color: #ef4444;
+            --secondary-text: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #fdfbf7 0%, #e2e8f0 100%);
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .heart {
+            font-size: 8rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+            letter-spacing: 0.05em;
+        }
+
+        .counter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .grid-detailed {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .grid-total {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #0f172a, #334155);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+        }
+
+        .label {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .grid-detailed,
+            .grid-total {
+                grid-template-columns: 1fr;
+            }
+
+            .heart {
+                font-size: 6rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>Zusammen seit 01.10.2022</h1>
+
+        <div class="counter-section">
+            <div class="grid-detailed">
+                <div class="card">
+                    <span class="number" id="years">0</span>
+                    <span class="label">Jahre</span>
+                </div>
+                <div class="card">
+                    <span class="number" id="months">0</span>
+                    <span class="label">Monate</span>
+                </div>
+                <div class="card">
+                    <span class="number" id="days">0</span>
+                    <span class="label">Tage</span>
+                </div>
+            </div>
+
+            <div class="grid-total">
+                <div class="card">
+                    <span class="number" id="total-months">0</span>
+                    <span class="label">Monate Gesamt</span>
+                </div>
+                <div class="card">
+                    <span class="number" id="total-days">0</span>
+                    <span class="label">Tage Gesamt</span>
+                </div>
+                <div class="card">
+                    <span class="number" id="total-seconds">0</span>
+                    <span class="label">Sekunden</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const startDate = new Date('2022-10-01T00:00:00');
+
+        function updateCounters() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            // Basic time units
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            // Calculate detailed duration (Years, Months, Days)
+            let y = now.getFullYear() - startDate.getFullYear();
+            let m = now.getMonth() - startDate.getMonth();
+            let d = now.getDate() - startDate.getDate();
+
+            if (d < 0) {
+                m--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                d += prevMonth.getDate();
+            }
+            if (m < 0) {
+                y--;
+                m += 12;
+            }
+
+            // Total Months
+            const totalMonths = (y * 12) + m;
+
+            // Update DOM
+            document.getElementById('years').textContent = y;
+            document.getElementById('months').textContent = m;
+            document.getElementById('days').textContent = d;
+
+            document.getElementById('total-months').textContent = totalMonths.toLocaleString('de-DE');
+            document.getElementById('total-days').textContent = days.toLocaleString('de-DE');
+            document.getElementById('total-seconds').textContent = seconds.toLocaleString('de-DE');
+        }
+
+        setInterval(updateCounters, 1000);
+        updateCounters(); // Initial call
+    </script>
+</body>
+
+</html>
